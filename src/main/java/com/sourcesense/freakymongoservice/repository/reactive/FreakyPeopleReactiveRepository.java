@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public interface FreakyPeopleReactiveRepository extends ReactiveMongoRepository<FreakyPeople, String> {
+public interface FreakyPeopleReactiveRepository extends ReactiveMongoRepository<FreakyPeople, String>,FreakyPeopleReactiveMongoTemplate{
 
 	Mono<FreakyPeople> findOneById(String id);
 
