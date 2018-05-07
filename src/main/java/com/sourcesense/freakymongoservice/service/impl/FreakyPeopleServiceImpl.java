@@ -61,9 +61,11 @@ public class FreakyPeopleServiceImpl implements FreakyPeopleService {
 						.retrieve()
 						.bodyToMono(RandomObject.class)
 						.map(randomObject -> {
-							freakyPeople.setFavoriteUUID(randomObject.getRandomString());
-							freakyPeople.setFavoriteNumber(randomObject.getRandomNumber());
-							return freakyPeople;
+							return freakyPeople
+									.toBuilder()
+									.favoriteUUID(randomObject.getRandomString())
+									.favoriteNumber(randomObject.getRandomNumber())
+									.build();
 						})
 						.switchIfEmpty(Mono.error(new RandomNotFoundException()))
 				);
