@@ -65,7 +65,7 @@ public class FreakyPeopleServiceImpl implements FreakyPeopleService {
 							freakyPeople.setFavoriteNumber(randomObject.getRandomNumber());
 							return freakyPeople;
 						})
-						.switchIfEmpty(Mono.error(new RandomNotFoundException("E1223", "no random numbert found")))
+						.switchIfEmpty(Mono.error(new RandomNotFoundException()))
 				);
 	}
 

@@ -8,8 +8,8 @@ public class RandomNotFoundException extends GenericException{
 
 	private static final long serialVersionUID = 1L;
 
-	public RandomNotFoundException(String error, String message) {
-		super(error, message);
+	public RandomNotFoundException() {
+		super("E1223", "no random numbert found");
 		// TODO Auto-generated constructor stub
 	}
 
