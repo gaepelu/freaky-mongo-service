@@ -1,5 +1,6 @@
 package com.sourcesense.freakymongoservice.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.sourcesense.freakymongoservice.datatype.FreakyPeople;
@@ -16,5 +17,7 @@ public interface FreakyPeopleService {
 	Flux<FreakyPeople> getFreakyPeople(Pageable pageable);
 
 	Mono<Void> deleteById(String id);
+
+	Flux<FreakyPeople> getFreakyPeopleExt(PageRequest of);
 
 }

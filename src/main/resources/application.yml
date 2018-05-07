@@ -6,3 +6,6 @@ spring:
       host: localhost
       port: 27017
       database: freaky
+freaky-slow-service:
+  random-url: http://localhost:8082/random
+  randoms-url: http://localhost:8082/random/{limit}

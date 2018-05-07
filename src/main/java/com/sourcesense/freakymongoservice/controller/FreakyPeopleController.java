@@ -40,6 +40,11 @@ public class FreakyPeopleController {
 		return freakyPeopleService.getFreakyPeople(PageRequest.of(page, size));
 	}
 	
+	@GetMapping("/freaky-people-ext")
+	public Flux<FreakyPeople> getFreakyPeopleExt(final @RequestParam(name = "page") int page,final @RequestParam(name = "size") int size){
+		return freakyPeopleService.getFreakyPeopleExt(PageRequest.of(page, size));
+	}
+	
 	@GetMapping("/freaky-people/{id}")
 	public Mono<FreakyPeople> getFreakyPeopleById(@PathVariable(required=true,name="id") String id){
 		return freakyPeopleService.getFreakyPeopleById(id)
