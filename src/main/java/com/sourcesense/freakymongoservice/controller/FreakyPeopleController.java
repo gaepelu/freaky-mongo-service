@@ -1,8 +1,6 @@
 package com.sourcesense.freakymongoservice.controller;
 
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -31,7 +29,7 @@ public class FreakyPeopleController {
 	private FreakyPeopleService freakyPeopleService;
 	
 	@PostMapping("/freaky-people")
-	public Mono<FreakyPeople> saveFreakyPeople(@RequestBody @Valid FreakyPeople freakyPeople){
+	public Mono<FreakyPeople> saveFreakyPeople(@RequestBody FreakyPeople freakyPeople){
 		return freakyPeopleService.saveFreakyPeople(freakyPeople);
 	}
 	

@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 @JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE) 
-public class ValidationException extends RuntimeException{
-	/**
-	 * 
-	 */
+public class GenericException extends RuntimeException{
+
 	private static final long serialVersionUID = 1L;
 	private String error;
 	private String message;
-	public ValidationException(String error, String message) {
+	public GenericException(String error, String message) {
 		this.error = error;
 		this.message = message;
 	}

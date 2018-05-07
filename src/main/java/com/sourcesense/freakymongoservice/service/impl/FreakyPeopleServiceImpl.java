@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.sourcesense.freakymongoservice.configuration.SlowServiceConfiguration;
 import com.sourcesense.freakymongoservice.datatype.FreakyPeople;
 import com.sourcesense.freakymongoservice.datatype.client.RandomObject;
+import com.sourcesense.freakymongoservice.exception.RandomNotFoundException;
 import com.sourcesense.freakymongoservice.repository.reactive.FreakyPeopleReactiveRepository;
 import com.sourcesense.freakymongoservice.service.FreakyPeopleService;
 
@@ -64,6 +65,7 @@ public class FreakyPeopleServiceImpl implements FreakyPeopleService {
 							freakyPeople.setFavoriteNumber(randomObject.getRandomNumber());
 							return freakyPeople;
 						})
+						.switchIfEmpty(Mono.error(new RandomNotFoundException("E1223", "no random numbert found")))
 				);
 	}
 
