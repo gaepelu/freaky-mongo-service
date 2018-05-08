@@ -3,6 +3,7 @@ package com.sourcesense.freakymongoservice.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -59,8 +60,15 @@ public class GlobalExceptionHandler {
 		return Mono.just(ex);
 	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(DuplicateKeyException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Mono<GenericException> generic(DuplicateKeyException ex) {
+		return Mono.just(new GenericException("E11000", ex.getMessage()));
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Mono<GenericException> generic(Exception ex) {
 		return Mono.just(new GenericException("E9999", ex.getMessage()));
