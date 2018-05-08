@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.support.WebExchangeBindException;
 
 import com.sourcesense.freakymongoservice.exception.BeforeSaveValidationException;
 import com.sourcesense.freakymongoservice.exception.GenericException;
@@ -39,10 +40,29 @@ public class GlobalExceptionHandler {
 		return Mono.just(new GenericException("E2003", message));
 	}
 	
+	@ExceptionHandler(WebExchangeBindException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Mono<GenericException> handleGenericException(WebExchangeBindException ex) {
+		BindingResult result = ex.getBindingResult();
+		List<FieldError> fieldErrors = result.getFieldErrors();
+		
+		String message = fieldErrors.stream().map(ve -> ve.getDefaultMessage()).collect(Collectors.joining(", "));
+	 
+		return Mono.just(new GenericException("E2004", message));
+	}
+	
 	@ExceptionHandler(GenericException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public Mono<GenericException> handleGenericException(GenericException ex) {
+	public Mono<GenericException> GenericExceptionHandler(GenericException ex) {
 		return Mono.just(ex);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public Mono<GenericException> generic(Exception ex) {
+		return Mono.just(new GenericException("E9999", ex.getMessage()));
 	}
 }

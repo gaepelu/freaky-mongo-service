@@ -3,12 +3,14 @@ package com.sourcesense.freakymongoservice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.sourcesense.freakymongoservice.configuration.SlowServiceConfiguration;
 import com.sourcesense.freakymongoservice.datatype.FreakyPeople;
 import com.sourcesense.freakymongoservice.datatype.client.RandomObject;
+import com.sourcesense.freakymongoservice.exception.GenericException;
 import com.sourcesense.freakymongoservice.exception.RandomNotFoundException;
 import com.sourcesense.freakymongoservice.repository.reactive.FreakyPeopleReactiveRepository;
 import com.sourcesense.freakymongoservice.service.FreakyPeopleService;
@@ -59,14 +61,16 @@ public class FreakyPeopleServiceImpl implements FreakyPeopleService {
 						.get()
 						.uri(slowServiceConfiguration.getRandomUrl())
 						.retrieve()
+						.onStatus(HttpStatus::is4xxClientError, clientResponse ->Mono.error(new RandomNotFoundException()))
+			            .onStatus(HttpStatus::is5xxServerError, clientResponse ->Mono.error(new GenericException("E9999",clientResponse.bodyToMono(String.class).block())))
 						.bodyToMono(RandomObject.class)
-						.map(randomObject -> {
-							return freakyPeople
+						.map(randomObject -> 
+							freakyPeople
 									.toBuilder()
 									.favoriteUUID(randomObject.getRandomString())
 									.favoriteNumber(randomObject.getRandomNumber())
-									.build();
-						})
+									.build()
+						)
 						.switchIfEmpty(Mono.error(new RandomNotFoundException()))
 				);
 	}
