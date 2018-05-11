@@ -12,5 +12,6 @@ import lombok.Setter;
 @ConfigurationProperties(prefix="freaky-slow-service")
 public class SlowServiceConfiguration {
 	private String randomUrl;
+	private String randomSlowUrl;
 	private String randomsUrl;
 }

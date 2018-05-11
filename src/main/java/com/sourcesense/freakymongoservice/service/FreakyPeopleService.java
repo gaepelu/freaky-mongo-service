@@ -20,4 +20,6 @@ public interface FreakyPeopleService {
 
 	Flux<FreakyPeople> getFreakyPeopleExt(PageRequest of);
 
+	Mono<FreakyPeople> getFreakyWinner();
+
 }

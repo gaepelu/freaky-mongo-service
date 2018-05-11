@@ -10,5 +10,8 @@ public class FreakyPeopleNotFoundException extends GenericException{
 	public FreakyPeopleNotFoundException(String id) {
 		super("E1001", "Freaky perople with id "+id+" not found");
 	}
+	public FreakyPeopleNotFoundException() {
+		super("E1002", "No Freaky people in database");
+	}
 	
 }

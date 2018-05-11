@@ -1,6 +1,7 @@
 package com.sourcesense.freakymongoservice.controller;
 
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,11 @@ public class FreakyPeopleController {
 	@GetMapping("/freaky-people-ext")
 	public Flux<FreakyPeople> getFreakyPeopleExt(final @RequestParam(name = "page") int page,final @RequestParam(name = "size") int size){
 		return freakyPeopleService.getFreakyPeopleExt(PageRequest.of(page, size));
+	}
+	
+	@GetMapping("/freaky-winner")
+	public Mono<FreakyPeople> getFreakyWinner(){
+		return freakyPeopleService.getFreakyWinner();
 	}
 	
 	@GetMapping("/freaky-people/{id}")

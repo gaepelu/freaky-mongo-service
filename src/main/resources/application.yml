@@ -8,4 +8,5 @@ spring:
       database: freaky
 freaky-slow-service:
   random-url: http://localhost:8082/random
+  random-slow-url: http://localhost:8082/random-slow
   randoms-url: http://localhost:8082/random/{limit}
