@@ -22,7 +22,7 @@ import lombok.ToString;
 @Document
 @Data
 @Builder(toBuilder=true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(
     fieldVisibility = JsonAutoDetect.Visibility.ANY,
